@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   View, 
   StyleSheet, 
@@ -10,8 +10,9 @@ import {
   Platform
 } from 'react-native';
 import { Subscription, SubscriptionFormData } from '../types/subscription';
-import SubscriptionList from './components/SubscriptionList';
-import SubscriptionForm from './components/SubscriptionForm';
+import SubscriptionList from '../components/SubscriptionList';
+import SubscriptionForm from '../components/SubscriptionForm';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Simple ID generator
 const generateId = () => {
@@ -23,16 +24,45 @@ export default function Index() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editingSubscription, setEditingSubscription] = useState<Subscription | undefined>();
 
+  useEffect(() => {
+    loadSubscriptions();
+  }, []);
+
+  const loadSubscriptions = async () => {
+    try {
+      const stored = await AsyncStorage.getItem('subscriptions');
+      if (stored) {
+        const parsedSubscriptions = JSON.parse(stored);
+        setSubscriptions(parsedSubscriptions);
+      }
+    } catch (error) {
+      console.error('Error loading subscriptions:', error);
+    }
+  };
+
+  const saveSubscriptions = async (newSubscriptions: Subscription[]) => {
+    try {
+      await AsyncStorage.setItem('subscriptions', JSON.stringify(newSubscriptions));
+    } catch (error) {
+      console.error('Error saving subscriptions:', error);
+    }
+  };
+
   const handleAddSubscription = (data: SubscriptionFormData) => {
+    let newSubscriptions: Subscription[];
+    
     if (editingSubscription) {
-      setSubscriptions(subscriptions.map(sub => 
+      newSubscriptions = subscriptions.map(sub => 
         sub.id === editingSubscription.id 
           ? { ...data, id: sub.id }
           : sub
-      ));
+      );
     } else {
-      setSubscriptions([...subscriptions, { ...data, id: generateId() }]);
+      newSubscriptions = [...subscriptions, { ...data, id: generateId() }];
     }
+    
+    setSubscriptions(newSubscriptions);
+    saveSubscriptions(newSubscriptions);
     setIsFormVisible(false);
     setEditingSubscription(undefined);
   };
@@ -43,7 +73,9 @@ export default function Index() {
   };
 
   const handleDeleteSubscription = (id: string) => {
-    setSubscriptions(subscriptions.filter(sub => sub.id !== id));
+    const newSubscriptions = subscriptions.filter(sub => sub.id !== id);
+    setSubscriptions(newSubscriptions);
+    saveSubscriptions(newSubscriptions);
   };
 
   const handleCancel = () => {

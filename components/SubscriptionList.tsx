@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Pressable, Image } from 'react-native';
-import { Subscription, Currency } from '../../types/subscription';
+import { Subscription, Currency, Frequency } from '../types/subscription';
 import { format } from 'date-fns';
 
 const CURRENCY_SYMBOLS: Record<Currency, string> = {
@@ -8,6 +8,15 @@ const CURRENCY_SYMBOLS: Record<Currency, string> = {
   USD: '$',
   EUR: '€',
   GBP: '£'
+};
+
+const FREQUENCY_LABELS: Record<Frequency, string> = {
+  'monthly': 'Monthly',
+  'yearly': 'Yearly',
+  'quarterly': 'Quarterly',
+  'weekly': 'Weekly',
+  'bi-weekly': 'Bi-weekly',
+  'semi-annual': 'Semi-annual'
 };
 
 interface SubscriptionListProps {
@@ -51,6 +60,9 @@ export default function SubscriptionList({
           </View>
           <Text style={styles.subscriptionPrice}>
             {formatPrice(item.price, item.currency, item.includeTax)}
+          </Text>
+          <Text style={styles.frequencyText}>
+            {FREQUENCY_LABELS[item.frequency]}
           </Text>
         </View>
         <Pressable 
@@ -127,6 +139,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     marginTop: 2,
+  },
+  frequencyText: {
+    fontSize: 12,
+    color: '#999',
+    marginTop: 2,
+    fontStyle: 'italic',
   },
   deleteButton: {
     padding: 4,
