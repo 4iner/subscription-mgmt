@@ -1,46 +1,82 @@
-# Welcome to your Expo app 👋
+# Subscription Management App 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native app built with Expo for tracking and managing your subscriptions. Keep track of your monthly expenses, renewal dates, and subscription details all in one place.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 📋 **Subscription Tracking**: Add, edit, and delete subscriptions
+- 💰 **Price Management**: Track prices in multiple currencies (CAD, USD, EUR, GBP)
+- 📅 **Renewal Dates**: Never miss a renewal with automatic date calculations
+- 🎯 **Billing Frequencies**: Support for monthly, yearly, quarterly, weekly, bi-weekly, and semi-annual billing
+- 🏷️ **Service Icons**: Automatic logo fetching for subscription services
+- 📊 **Expense Totals**: View your total monthly expenses by currency
+- 🧪 **Free Trials**: Track free trial subscriptions separately
+- ❌ **Cancelled Subscriptions**: Keep track of cancelled services
 
+## Screenshots
+
+### Main Subscription List
+![Subscription List](images/Screenshot%202025-06-19%20152925.png)
+
+### Add/Edit Subscription Form
+![Subscription Form](images/Screenshot%202025-06-19%20152951.png)
+
+### Subscription Details with Icons
+![Subscription Details](images/Screenshot%202025-06-19%20153229.png)
+
+### Monthly Totals View
+![Monthly Totals](images/Screenshot%202025-06-19%20153250.png)
+
+## Getting Started
+
+1. **Install dependencies**
    ```bash
    npm install
    ```
 
-2. Start the app
-
+2. **Start the development server**
    ```bash
-    npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+3. **Run on your preferred platform**
+   - **Web**: Press `w` in the terminal
+   - **Android**: Press `a` in the terminal or scan the QR code with Expo Go
+   - **iOS**: Press `i` in the terminal or scan the QR code with Expo Go
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Tech Stack
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **React Native** with Expo
+- **TypeScript** for type safety
+- **Expo Router** for navigation
+- **AsyncStorage** for local data persistence
+- **date-fns** for date manipulation
+- **Expo Vector Icons** for UI icons
 
-## Get a fresh project
+## Project Structure
 
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+├── app/                    # Main app screens
+│   ├── index.tsx          # Subscription list
+│   ├── totals.tsx         # Monthly totals view
+│   └── _layout.tsx        # Navigation layout
+├── components/            # Reusable components
+│   ├── SubscriptionForm.tsx
+│   └── SubscriptionList.tsx
+├── types/                 # TypeScript type definitions
+│   └── subscription.ts
+└── images/               # App screenshots
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Development
 
-## Learn more
+This project uses [file-based routing](https://docs.expo.dev/router/introduction) with Expo Router. You can start developing by editing the files inside the **app** directory.
 
-To learn more about developing your project with Expo, look at the following resources:
+## Learn More
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- [Expo documentation](https://docs.expo.dev/)
+- [React Native documentation](https://reactnative.dev/)
+- [Expo Router documentation](https://docs.expo.dev/router/introduction/)
 
 ## Join the community
 

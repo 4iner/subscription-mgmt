@@ -123,7 +123,7 @@ export default function SubscriptionForm({
     subscription?.renewalDate ? new Date(subscription.renewalDate) : new Date()
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedIcon, setSelectedIcon] = useState<string>('');
+  const [selectedIcon, setSelectedIcon] = useState<string>(subscription?.iconUrl || '');
   const [iconResults, setIconResults] = useState<IconResult[]>([]);
   const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
   const [isSearching, setIsSearching] = useState(false);
